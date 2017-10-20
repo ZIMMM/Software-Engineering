@@ -29,3 +29,37 @@ class Node {
 	  return data;
   }
 }
+
+class BinaryT {       // simple binary tree code from last year
+	
+	private Node root;
+	
+	public BinaryT() {
+		root=null;
+	}
+	
+	public boolean isEmpty() {
+		return root == null;
+	}
+	
+	public void insert(int data) {
+		root = insert(root, data);
+	}
+	
+	private Node insert(Node node, int data) {
+		if (node == null) {
+			node = new Node(data);
+		}
+		else {
+			if (data<=node.getData()) {
+				node.left = insert(node.left, data);
+			}
+			else {
+				node.right = insert(node.right, data);
+			}
+		}
+		
+		return node;
+	}
+
+}
