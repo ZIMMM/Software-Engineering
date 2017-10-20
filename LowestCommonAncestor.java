@@ -62,4 +62,26 @@ class BinaryT {       // simple binary tree code from last year
 		return node;
 	}
 
+	public Node FindLCA(Node a, Node b) {    //calls function for finding lowest common ancestor
+		return FindLCA(root, a, b);
+	}
+	
+	
+	private Node FindLCA(Node root, Node a, Node b) {
+		if (root == null || root.getData() == a.getData() || root.getData() == b.getData()) {  // recursive function to find the lowest common ancestor
+			return root;                                                                       // found online 
+		}
+		Node left = FindLCA(root.getLeft(), a, b);
+		Node right = FindLCA(root.getRight(), a, b);
+		
+		if (left == null && right == null) {
+			return null;
+		}
+		else if (left == null) {
+			return right;
+		}
+		else {
+			return root;
+		}
+	}
 }
