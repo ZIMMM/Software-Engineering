@@ -8,8 +8,16 @@ public class LowestCommonAncestorTest {
 
 	
 
-		
-		
+	@Test
+	//////test for just two nodes
+	public void testTwoNodeDAG()
+	{
+		LowestCommonAncestorDag<Integer> DAG = new LowestCommonAncestorDag<Integer>();	
+		DAG.anode = DAG.createNode(5);
+		Node<Integer> n = DAG.createNode(3);
+		DAG.anode.addEdge(n);
+		assertEquals(DAG.LCA(DAG.anode, n), DAG.anode);
+	}
 	
 		
 	
