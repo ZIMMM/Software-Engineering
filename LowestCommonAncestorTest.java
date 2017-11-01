@@ -19,6 +19,19 @@ public class LowestCommonAncestorTest {
 		assertEquals(DAG.LCA(DAG.anode, n), DAG.anode);
 	}
 	
+	@Test //test for invalid verts etc so essentially a few are null and what not 
+	public void Invalid()
+	{
+		LowestCommonAncestorDag<Integer> DAG = new LowestCommonAncestorDag<Integer>();	
+		DAG.anode = DAG.createNode(5);
+		Node<Integer> n1 = DAG.createNode(3);
+		Node<Integer> n2 = DAG.createNode(9);
+		DAG.anode.addEdge(n1);
+		assertNull(DAG.LCA( n1, null));
+		assertNull(DAG.LCA(null, DAG.anode));
+		assertNull(DAG.LCA(n1, n2));
+		
+	}
 		
 	
 		// examples of graphs i coded from the internet 
