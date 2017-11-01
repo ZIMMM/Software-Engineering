@@ -1,12 +1,11 @@
 package com.sanfoundry.hardgraph;
 
-import java.util.HashMap;
 import java.util.*;
 
 
 class GraphLinkedList
 {
-	 
+
 	    
 	    
     private Map<Integer, List<Integer>> adjacencyList;
@@ -79,6 +78,59 @@ class GraphLinkedList
         return false;
     }
 
+    public  List<Integer> LCA( List <integer>vert1, int vert2) 
+    {
+   	 int root = 1;
+
+        
+       
+       
+        	List<Integer> list1 = DFS(root, vert1, new ArrayList<>(), new Stack<>());  	
+        	List<Integer> list2 = DFS(root, vert2, new ArrayList<>(), new Stack<>());
+      
+        
+        	
+        	List<Integer> smallList;
+        	List<Integer> largeList;
+        	
+        	
+        	if (list1.size() <= list2.size()) 
+        	{
+        		smallList = list1;
+        		largeList = list2;
+        	} else {
+        		smallList = list2;
+        		largeList = list1;
+        	}
+        	
+        	if(largeList.contains(vert1))
+        	{
+        		return(vert1);
+        	}
+        	
+        	else if(largeList.contains(vert2))
+        	{
+        		return(node2);
+        	}
+        	else
+        	{
+
+        		for (int i = largeList.size()-1; i >= 0; i--) 
+        		{
+        			if (smallList.contains(largeList.get(i))) 
+        			{
+        				return largeList.get(i);
+        			}
+        		}
+        	}
+        	return null;
+    }
+    
+    
+    
+    
+    
+    
     //DFS traversal from a given node to a target node. Returned as a list of nodes
     private List<Integer> DFS(int from, int to, List<Integer> list, Stack<Integer> stack)
     {
