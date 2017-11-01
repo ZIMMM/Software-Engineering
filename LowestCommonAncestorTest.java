@@ -1,8 +1,38 @@
+
 import static org.junit.Assert.*;
+
+import java.util.*;
 
 import org.junit.Test;
 
 public class LowestCommonAncestorTest {
+	
+	@Test
+	public void testAcyclical()
+	{
+		LowestCommonAncestorDag<Integer> DAG = new LowestCommonAncestorDag<Integer>();
+		Node<Integer> n1 = DAG.createNode(9);
+		Node<Integer> n2 = DAG.createNode(22);
+		Node<Integer> n3 = DAG.createNode(17);
+		Node<Integer> n4 = DAG.createNode(3);
+		DAG.root = n1;
+		DAG.root.addEdge(n2);
+		DAG.root.addEdge(n3);
+		n2.addEdge(n4);
+		n3.addEdge(n4);
+		assertNull(DAG.LCA(n4, n2));
+	
+	}
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
 	
 	
 	@Test

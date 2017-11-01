@@ -1,32 +1,10 @@
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 
+import LowestCommonAncestor.Node;
 public class LowestCommonAncestorDag {
-
-	Set<Node<Integer>> allNodes = new HashSet<>();
-
-	public class Node<T> {
-		T data;
-		Set<Node<T>> adList;
-
-		public Node(T data) {
-			this.data = data;
-			this.adList = new HashSet<>();
-		}
-
-		public Node<Integer> createNode(Integer data) {
-			Node<Integer> node = new Node<Integer>(data);
-			allNodes.add(node);
-			return node;
-		}
-
-		public void addEdge(Node<T> node) {
-			adList.add(node);
-		}
 
 		public Node<Integer> LCA(Node<Integer> anode, Node<Integer> n1, Node<Integer> n2) {
 			List<Node<Integer>> list0 = DFS(anode, n1, new ArrayList<>(), new Stack<>());
@@ -59,7 +37,7 @@ public class LowestCommonAncestorDag {
 			}
 			return null;
 		}
-	}
+	
 
 	private List<Node<Integer>> DFS(Node<Integer> node, Node<Integer> targetNode, List<Node<Integer>> list,
 			Stack<Node<Integer>> stack) {
