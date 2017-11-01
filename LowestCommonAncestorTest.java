@@ -1,4 +1,3 @@
-
 import static org.junit.Assert.*;
 
 import java.util.*;
@@ -6,138 +5,86 @@ import java.util.*;
 import org.junit.Test;
 
 public class LowestCommonAncestorTest {
-	
-	@Test
-	public void testAcyclical()
-	{
-		LowestCommonAncestorDag<Integer> DAG = new LowestCommonAncestorDag<Integer>();
-		Node<Integer> n1 = DAG.createNode(9);
-		Node<Integer> n2 = DAG.createNode(22);
-		Node<Integer> n3 = DAG.createNode(17);
-		Node<Integer> n4 = DAG.createNode(3);
-		DAG.root = n1;
-		DAG.root.addEdge(n2);
-		DAG.root.addEdge(n3);
-		n2.addEdge(n4);
-		n3.addEdge(n4);
-		assertNull(DAG.LCA(n4, n2));
-	
-	}
-	
-	
-	
-	
-	
 
 	
-	
-	
-	
-	
-	
-	@Test
-	 //test for finding LCA in a tree with only one branch
-	public void LCAin1LeftBranchTree() {
-		BinaryT BinaryT = new BinaryT();
-		BinaryT.insert(1);
-		BinaryT.insert(0);
-		Node a = new Node(1);
-		Node b = new Node(0);
-		assertEquals(1, BinaryT.FindLCA(a, b).getData());
-	}
-	
-	@Test
-	public void testLowestCommonAncestor(){
 
-		BinaryT BinaryT = new BinaryT();
-		
-		BinaryT.insert(4);
-		BinaryT.insert(3);
-		BinaryT.insert(2);
-		BinaryT.insert(1);
-		BinaryT.insert(5);
-		BinaryT.insert(0);
 		
 		
-		Node a = new Node(0);
-		Node b = new Node(1);       //one right branch tree
+	
 		
-		assertEquals(4, BinaryT.FindLCA(a, b).getData());
+	
+		// examples of graphs i coded from the internet 
+	//all to test various LCA of DAG's
 		
-		 a = new Node(3);
-		 b = new Node(1);
+		@Test
+		public void TestCases()
+		{
 		
-		assertEquals(4, BinaryT.FindLCA(a, b).getData());   //different heights
+			LowestCommonAncestorDag<Integer> a = new LowestCommonAncestorDag<Integer>();	
+			a.anode = new Node<Integer>(3);
+			Node<Integer> n1 = a.createNode(5);
+			Node<Integer> n2 = a.createNode(10);
+			Node<Integer> n3 = a.createNode(13);
+			Node<Integer> n4 = a.createNode(4);
+			Node<Integer> n5 = a.createNode(9);
+			Node<Integer> n6 = a.createNode(19);
+			Node<Integer> n7 = a.createNode(14);
+			a.anode.addEdge(n1);
+			a.anode.addEdge(n2);
+			n1.addEdge(n3);
+			n1.addEdge(n7);
+			n2.addEdge(n4);
+			n2.addEdge(n5);
+			n2.addEdge(n6);
+			assertEquals(a.LCA(n4, n5), n2);
+			assertEquals(a.LCA(n1, n3), n1);			
+			assertEquals(a.LCA(n1, n7), n1);
+			
+			
+			
 		
-		 a = new Node(2);
-		 b = new Node(3);
-		
-		assertEquals(4, BinaryT.FindLCA(a, b).getData());   // same height in tree
-		
+			LowestCommonAncestorDag<Integer> b = new LowestCommonAncestorDag<Integer>();	
+			b.anode = b.createNode(1);
+			Node<Integer> node1 = b.createNode(2);
+			Node<Integer> node2 = b.createNode(3);
+			Node<Integer> node3 = b.createNode(4);
+			Node<Integer> node4 = b.createNode(5);
+			Node<Integer> node5 = b.createNode(6);
+
+			b.anode.addEdge(node1);
+			node1.addEdge(node2);
+			node1.addEdge(node3);
+			node3.addEdge(node4);
+			node3.addEdge(node5);
+			assertEquals(b.LCA(node2, node5), node1);
+			assertEquals(b.LCA(node3, node4), node3);			
+			assertEquals(b.LCA(node4, node5), node3);
+			
+			
+			
+			
+			LowestCommonAncestorDag<Integer> c = new LowestCommonAncestorDag<Integer>();	
+			c.anode = new Node<Integer>(8);
+			Node<Integer> nod0 = c.createNode(69);
+			Node<Integer> nod1 = c.createNode(65);
+			Node<Integer> nod2 = c.createNode(6);
+			Node<Integer> nod3 = c.createNode(251);
+			Node<Integer> nod4 = c.createNode(63);
+			Node<Integer> nod5 = c.createNode(143);
+			Node<Integer> nod6 = c.createNode(2);
+			c.anode.addEdge(nod0);
+			c.anode.addEdge(nod4);
+			nod0.addEdge(nod1);
+			nod1.addEdge(nod2);
+			nod1.addEdge(nod5);
+			nod2.addEdge(nod3);
+			nod5.addEdge(nod6);
+			
+			assertEquals(c.LCA(nod3, nod6),nod1);
+			assertEquals(c.LCA(nod4, nod2),c.anode);
+			
+			
+		}
 		
 
-
-	}
-	
-	
-	@Test
-	public void LCAAllRightBranches() {
-		BinaryT BinaryT = new BinaryT();              // all right branches
-		BinaryT.insert(0);
-		BinaryT.insert(1);
-		BinaryT.insert(2);
-		Node a = new Node(1);
-		Node b = new Node(2);
-		assertEquals(1, BinaryT.FindLCA(a, b).getData());
-	}
-
-	@Test
-	public void NodeGetDataTest() {
-		Node node = new Node(0);                       //  null
-		assertEquals(0, node.getData());
-	}
-	
-	@Test
-	public void NodeSetLeftGetLeftTest() {
-		Node node = new Node(0);
-		Node left = new Node(1);                  // get left node 
-		node.setLeft(left);
-		assertSame(left, node.getLeft());
-	}
-	
-	@Test
-	public void NodeSetRightGetRightTest() {                  //get right node
-		Node node = new Node(0);
-		Node right = new Node(1);
-		node.setRight(right);
-		assertSame(right, node.getRight());
-	}
-
-	@Test
-	public void BinaryTreeIsEmpty() {
-		BinaryT BinaryT = new BinaryT();
-		assertTrue(BinaryT.isEmpty());          // check to see if the test is empty
-		BinaryT.insert(0);
-		assertFalse(BinaryT.isEmpty());
-	}
-	
-	@Test
-
-	public void FindLCAWhenRootNode() {                //lowest common branch when root
-		BinaryT BinaryT = new BinaryT();
-		BinaryT.insert(1);
-		BinaryT.insert(0);
-		BinaryT.insert(2);
-		Node a = new Node(1);
-		Node b = new Node(2);
-		assertEquals(1, BinaryT.FindLCA(a, b).getData());
-	}
-	@Test
-	public void LCAIn1NodeTreeErrorTest() {
-		BinaryT BinaryT = new BinaryT();                    // error if its a one node tree as function requires at least 2
-		BinaryT.insert(0);
-		Node a = new Node(1);
-		Node b = new Node(2);
-		assertEquals(null, BinaryT.FindLCA(a, b));
 }
-	}
