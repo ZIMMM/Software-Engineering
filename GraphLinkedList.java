@@ -1,13 +1,14 @@
 package com.sanfoundry.hardgraph;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 class GraphLinkedList
 {
+	 
+	    
+	    
     private Map<Integer, List<Integer>> adjacencyList;
  
     public GraphLinkedList(int v)
@@ -16,6 +17,9 @@ class GraphLinkedList
         for (int i = 1; i <= v; i++)
             adjacencyList.put(i, new LinkedList<Integer>());
     }
+    
+    
+    
  
     public void setEdge(int from, int to)
     {
@@ -35,6 +39,8 @@ class GraphLinkedList
         }
         return adjacencyList.get(to);
     }
+    
+    
  
     public boolean checkDAG()
     {
@@ -72,4 +78,22 @@ class GraphLinkedList
         }
         return false;
     }
+
+    //DFS traversal from a given node to a target node. Returned as a list of nodes
+    private List<Integer> DFS(int from, int to, List<Integer> list, Stack<Integer> stack)
+    {
+        stack.push(from);
+        for (int i = 0;  i < adjacencyList.size(); i++) 
+        {
+            if (i == to) 
+            {
+                list.addAll(stack);
+                return list;
+            }
+            DFS(i, to, list, stack);
+        }
+        stack.pop();
+        return list;
+    }
 }
+
